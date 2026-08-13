@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fs from 'fs';
+import path from 'path';
 import { dbQuery } from './db.js';
 
 dotenv.config();
@@ -8,9 +10,18 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
+// Middleware with 10MB limit for image uploads
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// Serve static uploads
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+
+// Ensure uploads folder exists
+if (!fs.existsSync(path.join(process.cwd(), 'uploads'))) {
+  fs.mkdirSync(path.join(process.cwd(), 'uploads'), { recursive: true });
+}
 
 // Logger middleware
 app.use((req, res, next) => {
@@ -28,14 +39,58 @@ app.get('/', (req, res) => {
   });
 });
 
+// POST: Handle base64 image upload
+app.post('/api/upload', (req, res) => {
+  const { name, data } = req.body;
+  
+  if (!name || !data) {
+    return res.status(400).json({ error: 'Filename and base64 data are required.' });
+  }
+
+  try {
+    // Extract base64 data
+    const matches = data.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+    if (!matches || matches.length !== 3) {
+      return res.status(400).json({ error: 'Invalid base64 data format.' });
+    }
+
+    const fileBuffer = Buffer.from(matches[2], 'base64');
+    const extension = path.extname(name) || '.jpg';
+    const baseName = path.basename(name, extension).replace(/[^a-zA-Z0-9]/g, '_');
+    const uniqueName = `${baseName}_${Date.now()}${extension}`;
+    const filePath = path.join(process.cwd(), 'uploads', uniqueName);
+
+    fs.writeFileSync(filePath, fileBuffer);
+    
+    res.json({
+      success: true,
+      url: `/uploads/${uniqueName}`
+    });
+  } catch (err) {
+    console.error('File upload error:', err);
+    res.status(500).json({ error: 'Failed to upload file.' });
+  }
+});
+
 /* ==========================================================================
    PORTFOLIO CRUD ENDPOINTS (with Status support)
    ========================================================================== */
 
-// GET: Fetch all portfolio items
+// GET: Fetch all portfolio items sorted by date ascending
 app.get('/api/portfolio', async (req, res) => {
   try {
-    const items = await dbQuery.all('SELECT * FROM portfolio_items ORDER BY id DESC');
+    const items = await dbQuery.all('SELECT * FROM portfolio_items');
+    
+    // Sort chronologically (ascending: oldest first)
+    items.sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      const valA = isNaN(dateA.getTime()) ? 0 : dateA.getTime();
+      const valB = isNaN(dateB.getTime()) ? 0 : dateB.getTime();
+      if (valA !== valB) return valA - valB;
+      return a.id - b.id; // Fallback to ID sorting
+    });
+
     res.json(items);
   } catch (err) {
     console.error('Error fetching portfolio items:', err);
@@ -179,6 +234,63 @@ app.delete('/api/categories/:name', async (req, res) => {
     res.status(500).json({ error: 'Failed to delete category from database' });
   }
 });
+
+// POST: Login endpoint
+app.post('/api/login', async (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required' });
+  }
+
+  try {
+    const user = await dbQuery.get(
+      'SELECT * FROM users WHERE LOWER(username) = ? AND password = ?',
+      [username.toLowerCase().trim(), password]
+    );
+
+    if (user) {
+      res.json({ success: true, message: 'Authentication successful', user: { username: user.username } });
+    } else {
+      res.status(401).json({ error: 'Invalid username or password' });
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Database error during authentication' });
+  }
+});
+
+// POST: Change Password endpoint
+app.post('/api/change-password', async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  if (!currentPassword || !newPassword) {
+    return res.status(400).json({ error: 'All password fields are required' });
+  }
+
+  try {
+    // Check if the current password is valid (for user 'Happy')
+    const user = await dbQuery.get(
+      'SELECT * FROM users WHERE LOWER(username) = ? AND password = ?',
+      ['happy', currentPassword]
+    );
+
+    if (!user) {
+      return res.status(401).json({ error: 'Incorrect current password' });
+    }
+
+    // Update password in the database
+    await dbQuery.run(
+      'UPDATE users SET password = ? WHERE LOWER(username) = ?',
+      [newPassword, 'happy']
+    );
+
+    res.json({ success: true, message: 'Password updated successfully in database' });
+  } catch (err) {
+    console.error('Password change error:', err);
+    res.status(500).json({ error: 'Failed to update password in database' });
+  }
+});
+
+
 
 
 // Global Error Handler

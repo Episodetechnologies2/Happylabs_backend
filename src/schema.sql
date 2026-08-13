@@ -8,13 +8,13 @@ DROP TABLE IF EXISTS users;
 
 -- Create categories table
 CREATE TABLE categories (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY /*!40101 AUTO_INCREMENT */,
     name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create portfolio_items table
 CREATE TABLE portfolio_items (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY /*!40101 AUTO_INCREMENT */,
     category VARCHAR(50) NOT NULL,
     title VARCHAR(255) NOT NULL,
     date VARCHAR(100) NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE portfolio_items (
 
 -- Create users table
 CREATE TABLE users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id INTEGER PRIMARY KEY /*!40101 AUTO_INCREMENT */,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL
 );
