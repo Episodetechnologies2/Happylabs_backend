@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const dbFile = process.env.DATABASE_FILE || 'database.sqlite';
-const dbPath = path.resolve(__dirname, dbFile);
+const dbPath = path.resolve(process.cwd(), dbFile);
 
 // Check if database file exists before opening it (so we know if we need to seed it)
 const dbExists = fs.existsSync(dbPath);
