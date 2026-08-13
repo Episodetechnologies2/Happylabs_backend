@@ -1,0 +1,166 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "Happy",
+      "password": "Happy@2026"
+    }
+  ],
+  "categories": [
+    "abstract",
+    "illustration",
+    "webdesign"
+  ],
+  "portfolio_items": [
+    {
+      "id": 1,
+      "category": "abstract",
+      "title": "Identity design for a trading company in Dubai",
+      "date": "January 5, 2014",
+      "img": "/img/folio1.jpg",
+      "lead": "Identity & collateral design for Synergy Trading Associates DMCC.",
+      "body": "Complete corporate identity including business card design, stationery, and brand guidelines for trading firm in Dubai.",
+      "status": "published"
+    },
+    {
+      "id": 2,
+      "category": "illustration",
+      "title": "Local job portal",
+      "date": "March 31, 2012",
+      "img": "/img/folio2.jpg",
+      "lead": "Brand identity & web portal UI for seekme.in.",
+      "body": "Intuitive user portal design and 3D logo branding for regional employment platform.",
+      "status": "published"
+    },
+    {
+      "id": 3,
+      "category": "webdesign",
+      "title": "Innovative packaging solutions",
+      "date": "November 14, 2013",
+      "img": "/img/folio8.jpg",
+      "lead": "Structural eco packaging design.",
+      "body": "Creative package design and prototype modeling for retail egg container product line.",
+      "status": "published"
+    },
+    {
+      "id": 4,
+      "category": "abstract",
+      "title": "Branding solutions for fashion brand",
+      "date": "February 15, 2014",
+      "img": "/img/folio5.jpg",
+      "lead": "Luxury gold foil identity for Velli Pattu.",
+      "body": "Premium branding and metallic hot-foil emblem design for traditional silk saree label.",
+      "status": "published"
+    },
+    {
+      "id": 5,
+      "category": "abstract",
+      "title": "Radio to be heard, it has to be seen",
+      "date": "July 20, 2008",
+      "img": "/img/folio7.jpg",
+      "lead": "Brand identity for PSG Community Radio Station 107.8 MHz.",
+      "body": "Stationery, listener passes, and visual identity for educational community broadcast radio.",
+      "status": "published"
+    },
+    {
+      "id": 6,
+      "category": "illustration",
+      "title": "Traditional kerala sarees",
+      "date": "February 28, 2014",
+      "img": "/img/folio3.jpg",
+      "lead": "Emblem logo for Apala Kerala Sarees.",
+      "body": "Heritage illustration featuring backwaters, houseboat, and palm silhouette for saree boutique.",
+      "status": "published"
+    },
+    {
+      "id": 7,
+      "category": "illustration",
+      "title": "Dance school identity design",
+      "date": "August 15, 2006",
+      "img": "/img/folio6.jpg",
+      "lead": "Dynamic logo for Grease The Dance Studio.",
+      "body": "Energetic typography and flame symbol design for professional dance training academy.",
+      "status": "published"
+    },
+    {
+      "id": 8,
+      "category": "illustration",
+      "title": "Sweetened surprise",
+      "date": "March 12, 2014",
+      "img": "/img/folio4.jpg",
+      "lead": "Packaging & badge design for Sree Balaji sweets & bakes.",
+      "body": "Custom vintage seal logo and repeat pattern package wraps for confectionary store.",
+      "status": "published"
+    },
+    {
+      "id": 9,
+      "category": "webdesign",
+      "title": "When you say good morning",
+      "date": "October 2, 2013",
+      "img": "/img/folio9.jpg",
+      "lead": "Box packaging design for Uathayam.",
+      "body": "Clean white 3D product box mockup with vibrant green leaf branding.",
+      "status": "published"
+    },
+    {
+      "id": 10,
+      "category": "webdesign",
+      "title": "Taste the freshness",
+      "date": "November 20, 2013",
+      "img": "/img/folio11.jpg",
+      "lead": "Oja Brew tea packaging collection.",
+      "body": "Colorful outer carton graphics and sachet packaging for Hot & Cold tea varieties.",
+      "status": "published"
+    },
+    {
+      "id": 11,
+      "category": "webdesign",
+      "title": "The Temptation of ice-cream",
+      "date": "June 23, 2013",
+      "img": "/img/folio10.jpg",
+      "lead": "Fruste ice cream brochure catalog.",
+      "body": "Mouthwatering dessert photography layout and promotional booklet design.",
+      "status": "published"
+    },
+    {
+      "id": 12,
+      "category": "webdesign",
+      "title": "Shorba with a twist",
+      "date": "November 20, 2013",
+      "img": "/img/folio12.jpg",
+      "lead": "Oja Shorba eco-cardboard boxes.",
+      "body": "Kraft paper corrugated box branding for ready-to-serve food products.",
+      "status": "published"
+    },
+    {
+      "id": 13,
+      "category": "webdesign",
+      "title": "The beauty secret of Indian royals",
+      "date": "January 12, 2013",
+      "img": "/img/folio13.jpg",
+      "lead": "Ayurvedic cosmetics packaging range.",
+      "body": "Royal vintage labels and bottle packaging design for herbal beauty products.",
+      "status": "published"
+    },
+    {
+      "id": 14,
+      "category": "illustration",
+      "title": "Branding for Hospitality segment",
+      "date": "March 17, 2014",
+      "img": "/img/folio14.jpg",
+      "lead": "Pandyan Paradise lodging & boarding identity.",
+      "body": "Vibrant peacock mandala artwork and signage design for luxury hotel brand.",
+      "status": "published"
+    },
+    {
+      "id": 15,
+      "category": "webdesign",
+      "title": "E-commerce experience design",
+      "date": "April 10, 2014",
+      "img": "/img/folio15.jpg",
+      "lead": "Cozium home comfort store UI design.",
+      "body": "Modern web layout and shopping catalog interface for lifestyle bedding brand.",
+      "status": "published"
+    }
+  ]
+}
